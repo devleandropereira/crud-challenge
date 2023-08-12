@@ -1,8 +1,17 @@
-<mat-toolbar color="primary">
-    <span>PicPay</span>
-    <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <span>{{username}}</span>
-    <mat-icon>menu</mat-icon>
-    </button>
+<mat-toolbar color="accent">
+    <div class="container d-flex justify-content-between w-100 align-items-center">
+        <div class="logo">
+            <span>PicPay</span>
+        </div>
+        <div class="settings">
+            <span class="align-text-bottom">{{user}}</span>
+            <button mat-icon-button aria-label="Botão de lista de opções" [matMenuTriggerFor]="menu">
+                <mat-icon>menu</mat-icon>
+            </button>
+
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="sair()">Sair</button>
+            </mat-menu>
+        </div>
+    </div>
 </mat-toolbar>

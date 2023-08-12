@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { ApiService } from '../shared/services/api.service';
+import { LoginParams } from './models/login-params';
 
 @Component({
   selector: 'app-login',
@@ -11,28 +12,52 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   public hide = true;
-  loginForm: FormGroup;
+  public loginForm: FormGroup;
   public submitted = false;
+  public noAuth = false;
+  public mensagemErro = '';
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private apiService: ApiService
   ) {
     this.loginForm = this.fb.group({
-      username: [null, [Validators.required, Validators.maxLength(15)]],
-      password: [null, [Validators.required, Validators.maxLength(15)]]
+      user: [null, [Validators.required, Validators.maxLength(15)]],
+      senha: [null, [Validators.required, Validators.maxLength(15)]]
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const tokenStorage = sessionStorage.getItem('usuarioLogado');
+    if (tokenStorage) {
+      this.router.navigate(['/payments']);
+    }
+  }
 
   login() {
     this.submitted = true;
     if (this.loginForm.valid) {
-      if (this.loginForm.value.username === 'admin' && this.loginForm.value.password === 'admin') {
-        sessionStorage.setItem('user', '{"username": "admin", "name": "Administrador"}');
-        this.router.navigate(['/payments']);
+      const params: LoginParams = {
+        user: this.loginForm.value.user.toString().toLowerCase(),
+        senha: this.loginForm.value.senha.toString().toLowerCase()
       }
+        this.loginForm.value
+      this.apiService.login(params).subscribe({
+        next: data => {
+          if (data.length) {
+            sessionStorage.setItem('usuarioLogado', `{"user": "${data[0].user}", "nome": "${data[0].primeiroNome}"}`);
+            this.router.navigate(['/payments']);
+          } else {
+            this.noAuth = true;
+            this.mensagemErro = 'Usuário/Senha inválidos';
+          }
+        },
+        error: error => {
+          console.error(error);
+          this.mensagemErro = 'Erro na consulta ao servidor';
+        }
+      });
     }
   }
   

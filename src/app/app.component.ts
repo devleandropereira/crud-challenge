@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Event, NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,15 +8,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   
-  username = 'Leandro'
-  isLogged = false;
+  public user = '';
+  public isLogged = false;
   
-  constructor() {}
+  constructor(
+    private router: Router
+  ) {}
    
   ngOnInit(): void {
-    const token = sessionStorage.getItem('user');
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+        if (event.url.match('login')) {
+          this.isLogged = false;
+        } else {
+          this.configuraCabecalho();
+          this.isLogged = true;
+        }
+      }
+    });
+  }
+
+  configuraCabecalho() {
+    const token = sessionStorage.getItem('usuarioLogado');
     if (token) {
-      this.username = JSON.parse(token).name;
+      this.user = JSON.parse(token).nome;
       this.isLogged = true;
     }
   }

@@ -3,24 +3,24 @@
         <div class="m-auto d-flex flex-column w-25">
             <mat-card>
                 <mat-card-header class="justify-content-center">
-                <mat-card-title>
-                    <p class="text-light text-center">Login</p>
-                </mat-card-title>
+                    <mat-card-title>
+                        <p class="text-light text-center">Login</p>
+                    </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
-                    <mat-form-field class="w-100">
+                    <mat-form-field color="accent" class="w-100">
                         <mat-label>Usuário</mat-label>
-                        <input matInput type="text" formControlName="username">
+                        <input matInput type="text" formControlName="user" maxlength="15" class="text-lowercase">
                     </mat-form-field>
                     
-                    <mat-form-field class="w-100">
+                    <mat-form-field color="accent" class="w-100">
                         <mat-label>Senha</mat-label>
-                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="senha" maxlength="15" class="text-lowercase">
                         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
                     </mat-form-field>
-                    <mat-error *ngIf="submitted && loginForm.valid" class="mb-3">Usuário/Senha inválidos</mat-error>
+                    <mat-error *ngIf="submitted && noAuth" class="mb-3">{{mensagemErro}}</mat-error>
     
                     <div class="d-flex justify-content-center">
                         <button type="submit" mat-raised-button>Entrar</button>

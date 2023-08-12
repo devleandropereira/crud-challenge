@@ -1,5 +1,5 @@
-<div class="headerComponent" *ngIf="isLogged">
-  <app-page-header [username]="username"></app-page-header>
+<div class="w-100 mb-3" *ngIf="isLogged">
+  <app-page-header [user]="user" (logout)="isLogged = false"></app-page-header>
 </div>
 
 <router-outlet></router-outlet>
