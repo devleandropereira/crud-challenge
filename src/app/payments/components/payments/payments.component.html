@@ -17,10 +17,11 @@
     ></app-data-table>
     
     <mat-paginator #paginator
-        [length]="dataSourceFiltered.length"
-        [pageIndex]="0"
-        [pageSize]="10"
+        [length]="dataSource.length"
+        [pageIndex]="eventoPagina.pageIndex"
+        [pageSize]="eventoPagina.pageSize"
         [pageSizeOptions]="[5, 10, 25, 100]"
-        color="accent">
+        color="accent"
+        (page)="paginacao($event)">
     </mat-paginator>
 </div>

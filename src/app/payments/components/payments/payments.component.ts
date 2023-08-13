@@ -6,6 +6,7 @@ import { PaymentService } from '../../services/payment.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ModalConfirmacaoComponent } from '../modal-confirmacao/modal-confirmacao.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-payments',
@@ -18,7 +19,8 @@ export class PaymentsComponent implements OnInit {
   displayedColumns: string[] = ['usuario', 'titulo', 'data', 'valor', 'pago', 'acoes'];
   dataSource: Pagamento[] = [];
   dataSourceFiltered: Pagamento[] = [];
-  searchForm: FormGroup
+  searchForm: FormGroup;
+  eventoPagina = new PageEvent();
 
   constructor(
     public dialog: MatDialog,
@@ -34,43 +36,56 @@ export class PaymentsComponent implements OnInit {
   }
 
   listar() {
-    this.service.listar().subscribe({
-      next: data => {
-        this.dataSource = data;
-        this.dataSourceFiltered = this.dataSource;
-      },
-      error: erro => {
-        console.error(erro);
-        this._snackBar.open('Erro ao listar pagamentos', 'Ok', {
-          duration: 5000,
-          horizontalPosition: 'end',
-          verticalPosition: 'top',
-        });
-      }
-    })
+    this.dataSource = this.service.listar();
+    this.dataSourceFiltered = this.dataSource;
+    this.eventoPagina = {
+      length: this.dataSourceFiltered.length,
+      pageIndex: 0,
+      pageSize: 10
+    }
+    // this.service.listar().subscribe({
+    //   next: data => {
+    //     this.dataSource = data;
+    //     this.dataSourceFiltered = this.dataSource;
+    //   },
+    //   error: erro => {
+    //     console.error(erro);
+    //     this._snackBar.open('Erro ao listar pagamentos', 'Ok', {
+    //       duration: 5000,
+    //       horizontalPosition: 'end',
+    //       verticalPosition: 'top',
+    //     });
+    //   }
+    // });
   }
 
   mostrarFormulario(id?: number) {
     const dialogRef = this.dialog.open(FormComponent, {
-      data: id,
+      data: {id: id, dataSource: this.dataSource},
       height: '470px',
       width: '400px'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) this.listar();
+    dialogRef.afterClosed().subscribe((result: Pagamento[]) => {
+      if (result?.length) {
+        this.dataSource = result.map(data => data);
+        this.dataSourceFiltered = this.dataSource.map(data => data);
+      }
     });
   }
 
-  mostrarConfirmacao(item: Pagamento, acao: string) {
+  mostrarConfirmacao(item: Pagamento, acao: 'pagamento' | 'remoção') {
     const dialogRef = this.dialog.open(ModalConfirmacaoComponent, {
-      data: {operacao: acao, item: item },
+      data: {operacao: acao, item: item, dataSource: this.dataSource },
       height: '180px',
       width: '400px'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result || acao === 'pagamento') this.listar();
+    dialogRef.afterClosed().subscribe((result: Pagamento[]) => {
+      if (result?.length || typeof result === 'object') {
+        this.dataSource = result.map(data => data);
+        this.dataSourceFiltered = this.dataSource.map(data => data);
+      }
     });
   }
 
@@ -88,6 +103,14 @@ export class PaymentsComponent implements OnInit {
         || item.valor.toString().includes(termo)
       );
     } 
+  }
+
+  paginacao(evento: PageEvent) {
+    this.eventoPagina = evento;
+    const end = (this.eventoPagina.pageIndex + 1) * this.eventoPagina.pageSize;
+    const start = this.eventoPagina.pageIndex * this.eventoPagina.pageSize;
+    const part = this.dataSource.slice(start, end);
+    this.dataSourceFiltered = part;
   }
 
 }

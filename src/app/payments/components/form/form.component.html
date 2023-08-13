@@ -19,7 +19,8 @@
     
             <mat-form-field color="accent">
                 <mat-label>Valor</mat-label>
-                <input matInput formControlName="valor" min="0.01" maxlength="256">
+                <input matInput currencyMask formControlName="valor" maxlength="256" 
+                    [options]="{ align: 'left', prefix: '', thousands: '.', decimal: ',', allowNegative: false,  }" />
             </mat-form-field>
         </div>
     </form>

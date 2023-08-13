@@ -42,22 +42,29 @@ export class LoginComponent implements OnInit {
         user: this.loginForm.value.user.toString().toLowerCase(),
         senha: this.loginForm.value.senha.toString().toLowerCase()
       }
-        this.loginForm.value
-      this.apiService.login(params).subscribe({
-        next: data => {
-          if (data.length) {
-            sessionStorage.setItem('usuarioLogado', `{"user": "${data[0].user}", "nome": "${data[0].primeiroNome}"}`);
-            this.router.navigate(['/payments']);
-          } else {
-            this.noAuth = true;
-            this.mensagemErro = 'Usuário/Senha inválidos';
-          }
-        },
-        error: error => {
-          console.error(error);
-          this.mensagemErro = 'Erro na consulta ao servidor';
-        }
-      });
+      const data = this.apiService.login(params);
+      if (data.id) {
+        sessionStorage.setItem('usuarioLogado', `{"user": "${data.user}", "nome": "${data.primeiroNome}"}`);
+        this.router.navigate(['/payments']);
+      } else {
+        this.noAuth = true;
+        this.mensagemErro = 'Usuário/Senha inválidos';
+      }
+      // this.apiService.login(params).subscribe({
+      //   next: data => {
+      //     if (data.length) {
+      //       sessionStorage.setItem('usuarioLogado', `{"user": "${data[0].user}", "nome": "${data[0].primeiroNome}"}`);
+      //       this.router.navigate(['/payments']);
+      //     } else {
+      //       this.noAuth = true;
+      //       this.mensagemErro = 'Usuário/Senha inválidos';
+      //     }
+      //   },
+      //   error: error => {
+      //     console.error(error);
+      //     this.mensagemErro = 'Erro na consulta ao servidor';
+      //   }
+      // });
     }
   }
   

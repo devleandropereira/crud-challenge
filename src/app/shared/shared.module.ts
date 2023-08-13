@@ -19,6 +19,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { getPortuguesePaginatorIntl } from './config/paginator-pt-br';
 import {MatMenuModule} from '@angular/material/menu';
 import { LocaleDatePipe } from './pipes/locale-date.pipe';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { LocaleDatePipe } from './pipes/locale-date.pipe';
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatMenuModule    
+    MatMenuModule,
+    CurrencyMaskModule
   ],
   exports: [
     PageHeaderComponent,
@@ -63,7 +65,8 @@ import { LocaleDatePipe } from './pipes/locale-date.pipe';
     MatDatepickerModule,
     MatNativeDateModule,
     MatMenuModule,
-    LocaleDatePipe
+    LocaleDatePipe,
+    CurrencyMaskModule
   ],
   providers: [
     { provide: MatPaginatorIntl, useValue: getPortuguesePaginatorIntl() }
