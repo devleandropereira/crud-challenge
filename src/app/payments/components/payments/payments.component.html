@@ -1,8 +1,8 @@
 <div class="container mat-elevation-z8 py-3">
     <div class="d-flex justify-content-between align-items-baseline">
-      <form [formGroup]="searchForm" (submit)="pesquisar()" id="quickSearch">
-        <mat-form-field color="accent">
-          <input matInput #filter placeholder="Pesquisar" formControlName="term" />
+      <form [formGroup]="searchForm" (submit)="listar()" class="w-25">
+        <mat-form-field color="accent" class="w-100">
+          <input matInput #filter placeholder="Pesquisar por usuário" formControlName="term" />
         </mat-form-field>
       </form>
 
@@ -14,14 +14,15 @@
       (pagar)="mostrarConfirmacao($event, 'pagamento')"
       (remover)="mostrarConfirmacao($event, 'remoção')"
       (alterar)="mostrarFormulario($event)"
-    ></app-data-table>
+      (ordenar)="ordenar($event)">
+    </app-data-table>
     
     <mat-paginator #paginator
-        [length]="dataSource.length"
-        [pageIndex]="eventoPagina.pageIndex"
-        [pageSize]="eventoPagina.pageSize"
-        [pageSizeOptions]="[5, 10, 25, 100]"
-        color="accent"
-        (page)="paginacao($event)">
+      [length]="this.eventoPagina.length"
+      [pageIndex]="eventoPagina.pageIndex"
+      [pageSize]="eventoPagina.pageSize"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      color="accent"
+      (page)="paginacao($event)">
     </mat-paginator>
 </div>

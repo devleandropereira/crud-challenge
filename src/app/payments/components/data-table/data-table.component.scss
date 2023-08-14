@@ -5,3 +5,10 @@
 .celula-acoes {
     width: 130px;
 }
+
+.ellipsis {
+    max-width: 200px;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

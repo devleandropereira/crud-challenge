@@ -15,7 +15,7 @@ export class ModalConfirmacaoComponent {
   public carregando = false;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: {operacao: string, item: Pagamento, dataSource: Pagamento[] },
+    @Inject(MAT_DIALOG_DATA) public data: {operacao: string, item: Pagamento },
     public dialogRef: MatDialogRef<ModalConfirmacaoComponent>,
     public service: PaymentService,
     private _snackBar: MatSnackBar
@@ -23,40 +23,32 @@ export class ModalConfirmacaoComponent {
 
   confirmar() {
     this.carregando = true;
-    let requisicao: Pagamento[] = [];
-    // let requisicao: Observable<any>;
+    let requisicao: Observable<any>;
     const id: number = this.data.item.id || 0;
     if (this.data.operacao == 'pagamento') {
-      requisicao = this.service.pagar(id, this.data.dataSource);
+      requisicao = this.service.pagar(id);
     } else {
-      requisicao = this.service.remover(id, this.data.dataSource);
+      requisicao = this.service.remover(id);
     }
-    this._snackBar.open(`Sucesso ao efeturar ${this.data.operacao}!` , 'Ok', {
-      duration: 5000,
-      horizontalPosition: 'end',
-      verticalPosition: 'top',
+    requisicao.subscribe({
+      next: () => {
+        this._snackBar.open(`Sucesso ao efeturar ${this.data.operacao}!` , 'OK', {
+          duration: 5000,
+          horizontalPosition: 'end',
+          verticalPosition: 'top',
+        });
+        this.carregando = false;
+        this.dialogRef.close(true);
+      },
+      error: erro => {
+        console.error(erro);
+        this._snackBar.open(`Falha ao efetuar ${this.data.operacao}!` , 'OK', {
+          duration: 5000,
+          horizontalPosition: 'end',
+          verticalPosition: 'top',
+        });
+        this.carregando = false;
+      }
     });
-    this.carregando = false;
-    this.dialogRef.close(requisicao);
-    // requisicao.subscribe({
-    //   next: () => {
-    //     this._snackBar.open(`Sucesso ao efeturar ${this.data.operacao}!` , 'Ok', {
-    //       duration: 5000,
-    //       horizontalPosition: 'end',
-    //       verticalPosition: 'top',
-    //     });
-    //     this.carregando = false;
-    //     this.dialogRef.close(true);
-    //   },
-    //   error: erro => {
-    //     console.error(erro);
-    //     this._snackBar.open(`Falha ao efetuar ${this.data.operacao}!` , 'Ok', {
-    //       duration: 5000,
-    //       horizontalPosition: 'end',
-    //       verticalPosition: 'top',
-    //     });
-    //     this.carregando = false;
-    //   }
-    // })
   }
 }
