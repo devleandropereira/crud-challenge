@@ -19,12 +19,12 @@ module.exports = function (config) {
         dir: require('path').join(__dirname, '../coverage'),
         reporters: ['html', 'lcovonly', 'text'],
         fixWebpackSourcePaths: true,
-        // includeAllSources: true,
-        //       dir: 'coverage/',
-        //       reporters: [
-        //           { type: "html", subdir: "html" },
-        //           { type: 'text' }
-        //       ]
+        includeAllSources: true,
+              dir: 'coverage/',
+              reporters: [
+                  { type: "html", subdir: "html" },
+                  { type: 'text' }
+              ]
       },
       reporters: ['progress', 'kjhtml', 'coverage'],
       port: 9876,

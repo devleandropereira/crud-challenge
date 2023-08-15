@@ -35,4 +35,5 @@ export class AppComponent implements OnInit {
       this.isLogged = true;
     }
   }
+  
 }

@@ -37,8 +37,7 @@ export class PaymentService {
   }
 
   public listar(termo = '', eventoPagina: PageEvent, ordenacao: Sort) {
-    let paramTermo = ''
-    if (termo) paramTermo = 'name=' + termo + '&';
+    const paramTermo = termo ? 'title=' + termo + '&' : '';
     const index = eventoPagina.pageIndex + 1;
     return this.http.get<Pagamento[]>(
       `${this.URL}?${paramTermo}_page=${index}&_limit=${eventoPagina.pageSize}&_sort=${ordenacao.active}&_order=${ordenacao.direction}`

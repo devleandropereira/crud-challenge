@@ -103,7 +103,7 @@ export class FormComponent implements OnInit {
     this.form.controls['isPayed'].patchValue(params.isPayed);
   }
 
-  dateToForm(date: Date) {
+  dateToForm(date: Date | string) {
     const newDate = date.toString().split('-');
     return newDate[0] + '-' + newDate[1] + '-' + newDate[2].substring(0, 2);
   }

@@ -44,16 +44,17 @@ export class LoginComponent implements OnInit {
       }
       this.apiService.login(params).subscribe({
         next: data => {
-          if (data.length && data[0].email) {
+          if (data?.length && data[0].email) {
             sessionStorage.setItem('usuarioLogado', `{"email": "${data[0].email}", "nome": "${data[0].name}"}`);
             this.router.navigate(['/payments']);
           } else {
             this.noAuth = true;
-            this.mensagemErro = 'Usuário/Senha inválidos';
+            this.mensagemErro = 'Usuário/Senha não encontrados';
           }
         },
         error: error => {
           console.error(error);
+          this.noAuth = true;
           this.mensagemErro = 'Erro na consulta ao servidor';
         }
       });

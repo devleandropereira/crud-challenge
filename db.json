@@ -3,30 +3,20 @@
     {
       "id": 26,
       "username": "juju",
-      "name": "Juliete",
-      "title": "Au au",
+      "name": "Casandra",
+      "title": "silver medal",
       "date": "2022-02-02T03:00:00.000Z",
       "value": 9999.99,
       "image": null,
-      "isPayed": false
-    },
-    {
-      "id": 5,
-      "name": "Anthea Pundy",
-      "username": "apundy4",
-      "title": "Software Engineer III",
-      "value": 177.19,
-      "date": "2021-01-01T14:09:51Z",
-      "image": "https://robohash.org/quiaautomnis.png?size=150x150&set=set1",
       "isPayed": true
     },
     {
       "id": 1,
-      "name": "Leandro",
       "username": "apundy4",
+      "name": "Anthea Pundy",
       "title": "Software Engineer III",
+      "date": "2021-01-01T03:00:00.000Z",
       "value": 177.19,
-      "date": "2021-01-01T14:09:51Z",
       "image": "https://robohash.org/quiaautomnis.png?size=150x150&set=set1",
       "isPayed": true
     },
@@ -161,16 +151,6 @@
       "isPayed": false
     },
     {
-      "id": 16,
-      "name": "Nguyen Meyers",
-      "username": "XSPORTS",
-      "title": "100 Gold Street, Crumpler, Nebraska, 6428",
-      "value": 58387.3062,
-      "date": "2023-07-14T04:47:37Z",
-      "image": "8158e3fa-4727-4782-b103-20ef07c1553a",
-      "isPayed": false
-    },
-    {
       "id": 17,
       "name": "Faith Cain",
       "username": "ZAPHIRE",
@@ -233,7 +213,7 @@
     {
       "id": 24,
       "username": "cassioramos",
-      "name": "Cássio Ramos 123",
+      "name": "Cássio Ramos",
       "title": "Todos",
       "date": "1991-09-01T03:00:00.000Z",
       "value": 1223148.94,

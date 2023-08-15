@@ -2,14 +2,14 @@
     <div class="d-flex justify-content-between align-items-baseline">
       <form [formGroup]="searchForm" (submit)="listar()" class="w-25">
         <mat-form-field color="accent" class="w-100">
-          <input matInput #filter placeholder="Pesquisar por usuário" formControlName="term" />
+          <input matInput #filter placeholder="Pesquisar por título" formControlName="term" />
         </mat-form-field>
       </form>
 
       <button type="button" mat-raised-button (click)="mostrarFormulario()">Adicionar</button>
     </div>
     <app-data-table 
-      [dataSource]="dataSourceFiltered" 
+      [dataSource]="dataSource" 
       [displayedColumns]="displayedColumns"
       (pagar)="mostrarConfirmacao($event, 'pagamento')"
       (remover)="mostrarConfirmacao($event, 'remoção')"

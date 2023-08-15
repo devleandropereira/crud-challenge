@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PaymentService } from '../../services/payment.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,7 +15,7 @@ export class ModalConfirmacaoComponent {
   public carregando = false;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: {operacao: string, item: Pagamento },
+    @Inject(MAT_DIALOG_DATA) public data: {operacao: 'pagamento' | 'remoção', item: Pagamento },
     public dialogRef: MatDialogRef<ModalConfirmacaoComponent>,
     public service: PaymentService,
     private _snackBar: MatSnackBar
@@ -24,11 +24,10 @@ export class ModalConfirmacaoComponent {
   confirmar() {
     this.carregando = true;
     let requisicao: Observable<any>;
-    const id: number = this.data.item.id || 0;
     if (this.data.operacao == 'pagamento') {
-      requisicao = this.service.pagar(id);
+      requisicao = this.service.pagar(this.data.item.id);
     } else {
-      requisicao = this.service.remover(id);
+      requisicao = this.service.remover(this.data.item.id);
     }
     requisicao.subscribe({
       next: () => {

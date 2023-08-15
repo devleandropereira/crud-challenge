@@ -19,7 +19,6 @@ export class PaymentsComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'title', 'date', 'value', 'isPayed', 'acoes'];
   dataSource: Pagamento[] = [];
-  dataSourceFiltered: Pagamento[] = [];
   searchForm: FormGroup;
   eventoPagina = new PageEvent();
   ordenacao: Sort = {active: 'id', direction: 'desc'};
@@ -43,7 +42,6 @@ export class PaymentsComponent implements OnInit {
     this.service.listar(this.searchForm.value.term, this.eventoPagina, this.ordenacao).subscribe({
       next: data => {
         this.dataSource = data.body as Pagamento[];
-        this.dataSourceFiltered = this.dataSource;
         this.eventoPagina.length = Number(data.headers.get('X-Total-Count'));
       },
       error: erro => {
