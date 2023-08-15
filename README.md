@@ -23,7 +23,7 @@ Foi configurado o tempo de expiração de sessão em 10 minutos.
 
 ## Dashboard
 
-Em dashboard, a página irá listar os registros encontrados em `db.json` listando o usuário, título, data, valor e se está pago ou não.
+Em dashboard, a página irá listar os registros encontrados em `db.json` com as informações de usuário, título, data, valor e se está pago ou não.
 
 É possível adicionar novos registros, alterar, remover e atualizar para pago. 
 
@@ -36,7 +36,7 @@ Os modais de confirmação também são os mesmos componentes, diferenciando tam
 
 ## Design
 
-Foi utilizado os componentes do Material Angular v15 (inputs, dialog, snackbar, ícones, etc...) e estilos do Bootstrap v5 (espaçamentos, display, alinhamentos, tamanhos, etc...).
+Foram utilizados os componentes do Material Angular v15 (inputs, dialog, snackbar, ícones, etc...) e estilos do Bootstrap v5 (espaçamentos, display, alinhamentos, tamanhos, etc...).
 
 ## Biblioteca Extra
 
