@@ -1,27 +1,54 @@
 # CrudChallenge
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
+Projeto frontend de gerenciamento de pagamentos com utilização do framework Angular v15 e simulação de integração backend com Json-Server.
 
-## Development server
+O projeto possui página de login, dashboard e formulários de cadastro, edição e confirmação.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Todos os registros de acesso e pagamentos estão disponíveis em `db.json` na raíz do projeto.
 
-## Code scaffolding
+Esse projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Login
 
-## Build
+No login deve ser preenchido e-mail e senha do usuário. Por padrão, pode ser utilizado o registro abaixo:
+    
+    e-mail: usuario@gmail.com 
+    senha: usuario
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Ambos campos são obrigatórios e o usuário tem a opção de clicar no ícone do campo para visualizar sua senha.
 
-## Running unit tests
+Em caso de acesso negado, o sistema irá retornar com a respectiva mensagem. Já em caso de sucesso será direcionado ao dashboard de pagamentos.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Foi configurado o tempo de expiração de sessão em 10 minutos.
 
-## Running end-to-end tests
+## Dashboard
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Em dashboard, a página irá listar os registros encontrados em `db.json` listando o usuário, título, data, valor e se está pago ou não.
 
-## Further help
+É possível adicionar novos registros, alterar, remover e atualizar para pago. 
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Também é possível mudar a ordenação dos registros na listagem, pesquisar por título (deve ser igual ao preenchido no registro) e navegar entre as páginas.
+
+## Formulários
+
+Os formulários foram elaborados em modais sendo o cadastro e edição os mesmos components, diferenciando apenas pela origem da sua chamada e ação ao salvar.
+Os modais de confirmação também são os mesmos componentes, diferenciando também apenas pela origem da sua chamada sendo uma remoção ou pagamento (marcar como pago).
+
+## Design
+
+Foi utilizado os componentes do Material Angular v15 (inputs, dialog, snackbar, ícones, etc...) e estilos do Bootstrap v5 (espaçamentos, display, alinhamentos, tamanhos, etc...).
+
+## Biblioteca Extra
+
+Foi adicionado o ng2-currency-mask v13 para comportamento e validação do input de Valor encontrado no Formulário de cadastro/edição.
+
+## Servidor de desenvolvimento
+
+FRONTEND -> Execute `ng serve` no diretório do projeto e navegue para `http://localhost:4200/`. 
+
+BACKEND -> Execute `npm install -g json-server` e para rodar (deixar aberto em uma outra aba do terminal, para que ele fique escutando suas ações de CRUD!), execute o seguinte comando na RAÍZ do projeto:
+`json-server --watch db.json --port 3030`
+
+## Testes unitários
+
+Execute `ng test` para os testes unitário via [Karma](https://karma-runner.github.io).
