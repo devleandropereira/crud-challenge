@@ -1,5 +1,8 @@
 # CrudChallenge
 
+![](./src/assets/dashboard.PNG)
+
+
 Projeto frontend de gerenciamento de pagamentos com utilização do framework Angular v15 e simulação de integração backend com Json-Server.
 
 O projeto possui página de login, dashboard e formulários de cadastro, edição e confirmação.
@@ -9,6 +12,8 @@ Todos os registros de acesso e pagamentos estão disponíveis em `db.json` na ra
 Esse projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
 
 ## Login
+
+![](./src/assets/login.PNG)
 
 No login deve ser preenchido e-mail e senha do usuário. Por padrão, pode ser utilizado o registro abaixo:
     
